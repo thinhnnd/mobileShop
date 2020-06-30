@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Mobile shop Homepage</title>
+{% endblock %}
+
+{% block content %}
+<h1>MobileShop</h1>
+<p>Welcome to MobileShop, a website developed by <em>thinhnnd</em>!</p>
+<h2>Dynamic content</h2>
+<p>The shop has the following record counts:</p>
+<ul>
+    <li><strong>Phones:</strong> {{ num_phones }}</li>
+    <li><strong>Branches:</strong> {{ num_branches }}</li>
+
+</ul>
+
+<h5>Top 10 products</h5>
+<ul>
+    {% for phone in top_ten_phones_list %}
+      <li>
+        <a href="">{{ phone.title }}</a> ({{phone.firm}}) - Updated at: {{ phone.updated_at}}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
