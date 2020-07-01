@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Edit Product</title>
+{% endblock %}
+
+
+{% block content %}
+
+<p>Cập nhật lần cuối: {{ phone.updated_at }}</p>
+{% if message %}
+<h3>{{message}}</h3>
+
+{% endif %}
+<form name="edit-phone" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">Tên sản phẩm: </label>
+        <input name="title" type="text" class="form-control" id="title" value="{{ phone.title }}" placeholder="sản phẩm 1"> 
+    </div>
+    <div class="form-group">
+        <label for="price">Giá: </label>
+        <input name="price" type="text" class="form-control" id="price" value="{{ phone.price }}" placeholder="Giá"> 
+    </div>
+    <div class="form-group">
+        <label for="description">Mô tả sản phẩm:</label>
+        <textarea  name="description" class="form-control" id="description"rows="3">{{ phone.description }}</textarea>
+    </div>
+    <div class="form-group">
+        <p>Hình ảnh hiện tại: <a target="_blank" href="{{ phone.main_photo.url }}">{{ phone.main_photo.url }} </a></p>
+        <div>
+            <img src="{{ phone.main_photo.url }}" />
+        </div>
+        <label for="main_photo">Hình ảnh sản phẩm</label>
+        <input name="main_photo" type="file" accept="image/*" class="form-control-file" id="main_photo" value="{{ phone.main_photo.url }}">
+        <label for="remove_old_image" >Xóa ảnh cũ</label>
+        <input name="remove_old_image" type="checkbox" title="" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Lưu</button>
+</form>
+
+{% endblock %}

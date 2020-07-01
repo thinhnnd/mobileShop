@@ -7,15 +7,28 @@
 {% block content %}
 <h1>MobileShop</h1>
 <p>Welcome to MobileShop, a website developed by <em>thinhnnd</em>!</p>
-<h2>Dynamic content</h2>
-<p>The shop has the following record counts:</p>
-<ul>
-    <li><strong>Phones:</strong> {{ num_phones }}</li>
-    <li><strong>Branches:</strong> {{ num_branches }}</li>
 
-</ul>
-
-<h5>Top 10 products</h5>
+<h5>Recentenly updated: </h5>
+  <div class="row">
+    {% for phone in top_ten_phones_list %}
+    <div class="col-md-3">
+      <div class="product-wrapper">
+        <img src="{{ phone.main_photo.url }}" />
+      </div>
+      <h5 href="">{{ phone.title }} </h5>
+      <p>Hãng sản xuất: {{phone.firm}} </p>
+      <p>ID: {{ phone.id }} </p>
+      <p>
+        Updated at: {{ phone.updated_at}}
+      </p>
+      <p>
+        {{ phone.description }}
+      </p>
+      <a class="btn btn-primary " href="/shop-management/phone/{{phone.id}}/edit" role="button">Edit</a>
+      <a class="btn btn-danger " href="#" role="button">Xóa</a>
+    </div>
+    {% endfor %}
+</div>
 <ul>
     {% for phone in top_ten_phones_list %}
       <li>
