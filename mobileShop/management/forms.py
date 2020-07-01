@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import MobilePhone
+from .models import Phone
 
 class EditPhoneForm(forms.Form):
     title = forms.CharField(label='Your name', max_length=100)
@@ -9,5 +9,5 @@ class EditPhoneForm(forms.Form):
     price = forms.FileField()
 
     class Meta:
-        model = MobilePhone
+        model =Phone
         fields = ('title', 'description', 'main_photo', 'firm', 'price')

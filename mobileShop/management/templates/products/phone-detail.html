@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <p>
+                <div>
+                    Đăng tải lúc: {{ phone.created_at}}
+                </div>
+                <div>
+                    Cập nhật: {{ phone.updated_at}}
+                </div>
+            </p>
+            <h5>Tên sản phẩm: {{ phone.title }}</h5>
+            <p> {{ phone.description }}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="product-wrapper">
+                <img src="{{ phone.main_photo.url }}" />
+            </div>
+            <h3 class="text-center">Giá: {{ phone.price }} </h3>
+        </div>
+    </div>
+{% endblock %}

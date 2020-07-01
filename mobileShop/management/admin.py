@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import MobilePhone, Branch
+from .models import Phone, Branch
 
 # Register your models here.
-admin.site.register(MobilePhone)
+admin.site.register(Phone)
 admin.site.register(Branch)

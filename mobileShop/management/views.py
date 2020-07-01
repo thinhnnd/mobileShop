@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
 
-from management.models import MobilePhone, Branch
+from management.models import Phone, Branch
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -12,21 +12,38 @@ import os
 
 # Create your views here.
 
+class PhoneListView(generic.ListView):
+    #template_name = 'products/phone-detail.html'
+    model =Phone
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(*kwargs)
+        context['phone'] = self.object
+        return context   
 
+class PhoneDetailView(generic.DetailView):
+    template_name = 'products/phone-detail.html'
+    model =Phone
 
 def index(request):
-    num_phones = MobilePhone.objects.all().count()
-    num_branches = Branch.objects.all().count()
-    top_ten_phones_list = MobilePhone.objects.all().order_by('-updated_at')[:10]
+    num_phones =Phone.objects.all().count()
+    branches = Branch.objects.all()
+    top_ten_phones_list =Phone.objects.all().order_by('-created_at')[:10]
     context = {
         'num_phones': num_phones,
-        'num_branches': num_branches,
+        'num_branches': branches.count(),
         'top_ten_phones_list': top_ten_phones_list
     }
     return render(request, 'index.html', context = context)
 
+def delete_phone(request, id):
+    phone = get_object_or_404(Phone, pk=id)
+    if(request.method == 'DELETE'):
+        print('delete successfully')
+    return HttpResponseRedirect('/')
+
 def edit_phone(request, id):
-    phone = get_object_or_404(MobilePhone, pk=id)
+    phone = get_object_or_404(Phone, pk=id)
     context = {
         'phone': phone,
     }
@@ -42,7 +59,7 @@ def edit_phone(request, id):
         remove_old_image = formData.get('remove_old_image', False)
 
         # GET object from databases
-        updated_phone = MobilePhone.objects.get(pk=id)
+        updated_phone =Phone.objects.get(pk=id)
        
         updated_phone.price = new_price
         updated_phone.description = new_description
@@ -69,6 +86,9 @@ def edit_phone(request, id):
             'message': 'Successfully updated'
         }    
         return render(request, 'products/product-edit.html', context = context )
+
+    if request.method == 'DELETE':
+        print('delete')
 
     return render(request, 'products/product-edit.html', context=context)
 

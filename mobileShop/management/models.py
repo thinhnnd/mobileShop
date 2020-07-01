@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 # Create your models here.
-class MobilePhone(models.Model):
+class Phone(models.Model):
     title = models.CharField(max_length=200, unique=True, null=False, default="Tên Thiết bị", help_text="Enter a name of Product")
     price = models.PositiveIntegerField(null = True, blank = True, help_text="Enter price of product, min=10000")
     description = models.TextField(max_length=1000, null=True, blank=True)
