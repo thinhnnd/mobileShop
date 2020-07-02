@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from management.forms import EditPhoneForm
 from django.conf import settings
 import os 
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -37,11 +38,19 @@ def index(request):
     return render(request, 'index.html', context = context)
 
 def delete_phone(request, id):
-    phone = get_object_or_404(Phone, pk=id)
-    if(request.method == 'DELETE'):
-        print('delete successfully')
-    return HttpResponseRedirect('/')
-
+    try:
+        if(request.method == 'POST'):
+            print('delete successfully')
+            phone = get_object_or_404(Phone, pk=id)
+            phone.delete()
+            data = {
+                'message': 'Delete succesfully',
+            }
+            print(request.method)
+            return JsonResponse(data)
+    except:
+        return JsonResponse({'status':'false','message':'Error when delete'}, status=500)
+    
 def edit_phone(request, id):
     phone = get_object_or_404(Phone, pk=id)
     context = {

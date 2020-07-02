@@ -9,23 +9,55 @@
 <h5>Sản phẩm mới: </h5>
   <div class="row">
     {% for phone in top_ten_phones_list %}
-    <!-- <div class="col-md-3">
-      <div class="product-wrapper">
-        <img src="{{ phone.main_photo.url }}" />
-      </div>
-      <h5 href="">{{ phone.title }} </h5>
-      <p>Hãng sản xuất: {{phone.firm}} </p>
-      <p>ID: {{ phone.id }} </p>
-      <p>
-        Updated at: {{ phone.updated_at}}
-      </p>
-      <p>
-        {{ phone.description }}
-      </p>
-      <a class="btn btn-primary " href="/shop-management/phone/{{phone.id}}/edit" role="button">Edit</a>
-      <a class="btn btn-danger " href="#" role="button">Xóa</a>
-    </div> -->
       {% include "products/phone-grid.html" %}
     {% endfor %}
 </div>
+{% include "layouts/dialog-modal.html" %}
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+
+$(document).ready(function () {
+
+  $(document).on("click", "#delete-button", function () {
+      var phoneId = $(this).data('id');
+      $(".modal-body #product-id").text( phoneId );
+      // As pointed out in comments, 
+      // it is unnecessary to have to manually call the modal.
+      // $('#addBookDialog').modal('show');
+      $(document).on("click", "#modal-delete-btn", () => {
+        //deleteCommand(phoneId)
+        $('#deleteModal').modal('toggle');
+      })
+     
+  });
+  
+  function deleteCommand(phone_id) {
+            var url = `/shop-management/phone/${phone_id}/delete`
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+                },
+                success: function () {
+                    $('#phone__' + phone_id).remove();
+                    console.log("Deleted data successfully");
+                },
+                error: function () {
+                    console.log("Deleted failed");
+                }
+            });
+  }
+});
+
+  
+
+  
+</script>
+
 {% endblock %}
