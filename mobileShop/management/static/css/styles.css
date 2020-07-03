@@ -1,5 +1,16 @@
+
+.my-nav, footer {
+    background-color: #55BCC9;
+}
+
+div.main {
+    min-height: 100vh;
+}
+
 .product-wrapper {
-    margin-bottom: 15px;
+    margin: 15px auto;
+    max-width: 250px;
+    
 }
 
 .product-wrapper img{
@@ -32,4 +43,8 @@ a.product-link:hover .product-wrapper img {
 
 .product-item:nth-child(3) {
     background-color: rgb(199, 238, 121);
+}
+
+footer {    
+    text-align: center;
 }

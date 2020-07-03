@@ -16,7 +16,7 @@ from django.http import JsonResponse
 class PhoneListView(generic.ListView):
     #template_name = 'products/phone-detail.html'
     model =Phone
-    
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(*kwargs)
         context['phone'] = self.object
