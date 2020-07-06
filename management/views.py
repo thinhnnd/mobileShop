@@ -62,6 +62,8 @@ def edit_phone(request, id):
         # get data from FORM POST
         formData =request.POST
         new_title = formData.get('title', '')
+        if new_title.len() < 10:
+            return Response({'message': 'Invalid title, title must be longer. 10 characters are acceptable.'})
         new_description = formData.get('description', '')
         new_price = formData.get('price', '')
         new_main_photo = request.FILES.get('main_photo', False)
